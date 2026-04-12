@@ -137,6 +137,10 @@ extern "C" {
 
 // #if defined (__riscv_rvp)
 
+CREATE_RVP_INTRINSIC(uintXLEN_t, abs, intXLEN_t)
+CREATE_RVP_INTRINSIC(uintXLEN_t, cls, intXLEN_t)
+CREATE_RVP_INTRINSIC(uintXLEN_t, rev, uintXLEN_t)
+
 CREATE_RVP_INTRINSIC(int8xN_t, pslli_b, int8xN_t, intXLEN_t)
 CREATE_RVP_INTRINSIC(int16xN_t, pslli_h, int16xN_t, intXLEN_t)
 CREATE_RVP_INTRINSIC(int16xN_t, psslai_h, int16xN_t, intXLEN_t)
@@ -458,7 +462,17 @@ CREATE_RVP_INTRINSIC(int64_t, pmaxu_dw, int64_t, int64_t)
 
 #endif
 
+
 #if __riscv_xlen == 64
+
+// RV64 Only Scalar Intrinsics
+CREATE_RVP_INTRINSIC(uint64_t, absw, int32_t)
+CREATE_RVP_INTRINSIC(uint64_t, clsw, int32_t)
+CREATE_RVP_INTRINSIC(uint64_t, rev16, uint64_t)
+CREATE_RVP_INTRINSIC(int64_t, sha, int64_t, int)
+CREATE_RVP_INTRINSIC(int64_t, shar, int64_t, int)
+CREATE_RVP_INTRINSIC(uint64_t, shl, uint64_t, int)
+CREATE_RVP_INTRINSIC(uint64_t, shlr, uint64_t, int)
 
 CREATE_RVP_INTRINSIC(int32x2_t, pslli_w, int32x2_t, intXLEN_t)
 CREATE_RVP_INTRINSIC(int32x2_t, psslai_w, int32x2_t, intXLEN_t)
@@ -469,9 +483,7 @@ CREATE_RVP_INTRINSIC(int32x2_t, plui_w, intXLEN_t)
 CREATE_RVP_INTRINSIC(int32x2_t, psll_ws, int32x2_t, int32x2_t)
 CREATE_RVP_INTRINSIC(int32x2_t, padd_ws, int32x2_t, int32x2_t)
 CREATE_RVP_INTRINSIC(int32x2_t, pssha_ws, int32x2_t, int32x2_t)
-CREATE_RVP_INTRINSIC(int32x2_t, sha, int32x2_t, int32x2_t)
 CREATE_RVP_INTRINSIC(int32x2_t, psshar_ws, int32x2_t, int32x2_t)
-CREATE_RVP_INTRINSIC(int32x2_t, shar, int32x2_t, int32x2_t)
 CREATE_RVP_INTRINSIC(int32x2_t, psrli_w, int32x2_t, intXLEN_t)
 CREATE_RVP_INTRINSIC(uintXLEN_t, pusati_w, uintXLEN_t, intXLEN_t)
 CREATE_RVP_INTRINSIC(int32x2_t, psrari_w, int32x2_t, intXLEN_t)
@@ -500,14 +512,14 @@ CREATE_RVP_INTRINSIC(int32x2_t, macc_w01, int32x2_t, int32x2_t, int32x2_t)
 CREATE_RVP_INTRINSIC(uint32x2_t, maccu_w01, uint32x2_t, uint32x2_t, uint32x2_t)
 CREATE_RVP_INTRINSIC(int32x2_t, psh1add_w, int32x2_t, int32x2_t)
 CREATE_RVP_INTRINSIC(int32x2_t, pssh1sadd_w, int32x2_t, int32x2_t)
-CREATE_RVP_INTRINSIC(int64_t, unzip8p, int64_t, int64_t)
-CREATE_RVP_INTRINSIC(int64_t, unzip16p, int64_t, int64_t)
-CREATE_RVP_INTRINSIC(int64_t, unzip8hp, int64_t, int64_t)
-CREATE_RVP_INTRINSIC(int64_t, unzip16hp, int64_t, int64_t)
-CREATE_RVP_INTRINSIC(int64_t, zip8p, int64_t, int64_t)
-CREATE_RVP_INTRINSIC(int64_t, zip16p, int64_t, int64_t)
-CREATE_RVP_INTRINSIC(int64_t, zip8hp, int64_t, int64_t)
-CREATE_RVP_INTRINSIC(int64_t, zip16hp, int64_t, int64_t)
+CREATE_RVP_INTRINSIC(uint64_t, unzip8p, uint64_t, uint64_t)
+CREATE_RVP_INTRINSIC(uint64_t, unzip16p, uint64_t, uint64_t)
+CREATE_RVP_INTRINSIC(uint64_t, unzip8hp, uint64_t, uint64_t)
+CREATE_RVP_INTRINSIC(uint64_t, unzip16hp, uint64_t, uint64_t)
+CREATE_RVP_INTRINSIC(uint64_t, zip8p, uint64_t, uint64_t)
+CREATE_RVP_INTRINSIC(uint64_t, zip16p, uint64_t, uint64_t)
+CREATE_RVP_INTRINSIC(uint64_t, zip8hp, uint64_t, uint64_t)
+CREATE_RVP_INTRINSIC(uint64_t, zip16hp, uint64_t, uint64_t)
 CREATE_RVP_INTRINSIC(int32x2_t, pmul_w_h00, int16x4_t, int16x4_t)
 CREATE_RVP_INTRINSIC(int32xN_t, pmul_w_h11, int16xN_t, int16xN_t)
 CREATE_RVP_INTRINSIC(uint32x2_t, pmulu_w_h00, uint16x4_t, uint16x4_t)
