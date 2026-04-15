@@ -525,10 +525,10 @@ RISCV_BUILTIN (predsumu_dhs_p,     "predsumu_dhs",  RISCV_BUILTIN_DIRECT, RISCV_
 RISCV_BUILTIN (pnsrli_b_p,     "pnsrli_b",  RISCV_BUILTIN_DIRECT, RISCV_SI_FTYPE_DI_SI,     simd32),
 RISCV_BUILTIN (pnsrli_h_p,     "pnsrli_h",  RISCV_BUILTIN_DIRECT, RISCV_SI_FTYPE_DI_SI,     simd32),
 RISCV_BUILTIN (nsrli_p,     "nsrli",  RISCV_BUILTIN_DIRECT, RISCV_SI_FTYPE_DI_SI,     simd32),
-RISCV_BUILTIN (pnclipiu_b_p,     "pnclipiui_b",  RISCV_BUILTIN_DIRECT, RISCV_SI_FTYPE_DI_SI,     simd32),
+RISCV_BUILTIN (pnclipiu_b_p,     "pnclipiu_b",  RISCV_BUILTIN_DIRECT, RISCV_SI_FTYPE_DI_SI,     simd32),
 RISCV_BUILTIN (pnclipiu_h_p,     "pnclipiu_h",  RISCV_BUILTIN_DIRECT, RISCV_SI_FTYPE_DI_SI,     simd32),
 RISCV_BUILTIN (nclipiu_p,     "nclipiu",  RISCV_BUILTIN_DIRECT, RISCV_SI_FTYPE_DI_SI,     simd32),
-RISCV_BUILTIN (pnclipriu_b_p,     "pnclipriui_b",  RISCV_BUILTIN_DIRECT, RISCV_SI_FTYPE_DI_SI,     simd32),
+RISCV_BUILTIN (pnclipriu_b_p,     "pnclipriu_b",  RISCV_BUILTIN_DIRECT, RISCV_SI_FTYPE_DI_SI,     simd32),
 RISCV_BUILTIN (pnclipriu_h_p,     "pnclipriu_h",  RISCV_BUILTIN_DIRECT, RISCV_SI_FTYPE_DI_SI,     simd32),
 RISCV_BUILTIN (nclipriu_p,     "nclipriu",  RISCV_BUILTIN_DIRECT, RISCV_SI_FTYPE_DI_SI,     simd32),
 
