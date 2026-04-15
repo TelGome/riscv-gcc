@@ -330,3 +330,24 @@
 (define_constraint "Q"
   "An address operand that is valid for a prefetch instruction"
   (match_operand 0 "prefetch_operand"))
+
+;; =================================================================
+;; RISC-V P-Extension Immediate Constraints
+;; =================================================================
+(define_constraint "Wpb"
+  "An 8-bit immediate for pli.b / pli.db (-128 to 255)."
+  (and (match_code "const_int")
+       ;; 8-bit 有符号是 -128 ~ 127，无符号是 0 ~ 255
+       ;; 编译器常常由于符号扩展的原因，传入无符号的 255
+       ;; 所以范围通常放宽到涵盖整个 8-bit 窗口
+       (match_test "IN_RANGE (ival, -128, 255)")))
+
+(define_constraint "Wpi"
+  "A 10-bit signed immediate for pli.h (-512 to 511)."
+  (and (match_code "const_int")
+       (match_test "IN_RANGE (ival, -512, 511)")))
+
+(define_constraint "Wpu"
+  "A 10-bit unsigned immediate shifted left by 6 for plui.h."
+  (and (match_code "const_int")
+       (match_test "(ival & 0x3F) == 0 && IN_RANGE (ival, 0, 65472)")))

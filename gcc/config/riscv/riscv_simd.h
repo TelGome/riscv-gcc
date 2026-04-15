@@ -42,6 +42,11 @@ typedef unsigned short uint16x2_t __attribute__((vector_size(4)));
 typedef unsigned short uint16x4_t __attribute__((vector_size(8)));
 typedef unsigned int uint32x2_t __attribute__((vector_size(8)));
 
+typedef uint8_t  uint8x4_t  __attribute__((vector_size(4)));
+typedef int8_t   int8x4_t   __attribute__((vector_size(4)));
+typedef uint16_t uint16x2_t __attribute__((vector_size(4)));
+typedef int16_t  int16x2_t  __attribute__((vector_size(4)));
+
 #if __riscv_xlen == 32
 typedef int32_t intXLEN_t;
 typedef uint32_t uintXLEN_t;
@@ -136,6 +141,13 @@ extern "C" {
 #endif
 
 // #if defined (__riscv_rvp)
+
+#define __riscv_pmv_s_u8x8(x) __builtin_riscv_pmv_s_u8x8((uint8_t)(x))
+#define __riscv_pmv_s_i8x8(x) __builtin_riscv_pmv_s_i8x8((int8_t)(x))
+#define __riscv_pmv_s_u16x4(x) __builtin_riscv_pmv_s_u16x4((uint16_t)(x))
+#define __riscv_pmv_s_i16x4(x) __builtin_riscv_pmv_s_i16x4((int16_t)(x))
+#define __riscv_pmv_s_u32x2(x) __builtin_riscv_pmv_s_u32x2((uint32_t)(x))
+#define __riscv_pmv_s_i32x2(x) __builtin_riscv_pmv_s_i32x2((int32_t)(x))
 
 CREATE_RVP_INTRINSIC(uintXLEN_t, abs, intXLEN_t)
 CREATE_RVP_INTRINSIC(uintXLEN_t, cls, intXLEN_t)
@@ -281,6 +293,17 @@ CREATE_RVP_INTRINSIC(uint16xN_t, pmulhrsu_h, uint16xN_t, uint16xN_t)
 
 
 #if __riscv_xlen == 32
+
+// Packed Splat
+// CREATE_RVP_INTRINSIC(uint8x4_t, pmv_s_u8x4,uint8_t)
+// CREATE_RVP_INTRINSIC(int8x4_t, pmv_s_i8x4, int8_t)
+// CREATE_RVP_INTRINSIC(uint16x2_t, pmv_s_u16x2, uint16_t)
+// CREATE_RVP_INTRINSIC(int16x2_t, pmv_s_i16x2, int16_t)
+#define __riscv_pmv_s_u8x4(x) __builtin_riscv_pmv_s_u8x4((uint8_t)(x))
+#define __riscv_pmv_s_i8x4(x) __builtin_riscv_pmv_s_i8x4((int8_t)(x))
+#define __riscv_pmv_s_u16x2(x) __builtin_riscv_pmv_s_u16x2((uint16_t)(x))
+#define __riscv_pmv_s_i16x2(x) __builtin_riscv_pmv_s_i16x2((int16_t)(x))
+
 
 CREATE_RVP_INTRINSIC(int32_t, sslai, int32_t, intXLEN_t)
 CREATE_RVP_INTRINSIC(int32_t, ssha, int32_t, int32_t)

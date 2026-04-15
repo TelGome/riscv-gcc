@@ -167,6 +167,257 @@
   [(set_attr "type" "simd")
    (set_attr "mode" "DI")])
 
+;Packed Splat
+(define_insn "riscv_pmv_s_u8x4"
+  [(set (match_operand:V4QI 0 "register_operand" "=r, r")
+        (unspec:V4QI [(match_operand:QI 1 "nonmemory_operand" "r, Wpb")]
+         UNSPEC_PLI))]
+  "TARGET_RVP && !TARGET_64BIT"
+  "@
+   padd.bs\t%0, x0, %1
+   pli.b\t%0, %1"
+  [(set_attr "type" "simd, simd")])
+
+(define_insn "riscv_pmv_s_i8x4"
+  [(set (match_operand:V4QI 0 "register_operand" "=r, r")
+        (unspec:V4QI [(match_operand:QI 1 "nonmemory_operand" "r, Wpb")]
+         UNSPEC_PLI))]
+  "TARGET_RVP && !TARGET_64BIT"
+  "@
+   padd.bs\t%0, x0, %1
+   pli.b\t%0, %1"
+  [(set_attr "type" "simd, simd")])
+
+(define_insn "riscv_pmv_s_u16x2"
+  [(set (match_operand:V2HI 0 "register_operand" "=r, r, r")
+        (unspec:V2HI [(match_operand:HI 1 "nonmemory_operand" "r, Wpi, Wpu")]
+         UNSPEC_PLI))]
+  "TARGET_RVP && !TARGET_64BIT"
+  "@
+   padd.hs\t%0, x0, %1
+   pli.h\t%0, %1
+   plui.h\t%0, %1"
+  [(set_attr "type" "simd, simd, simd")])
+
+(define_insn "riscv_pmv_s_i16x2"
+  [(set (match_operand:V2HI 0 "register_operand" "=r, r, r")
+        (unspec:V2HI [(match_operand:HI 1 "nonmemory_operand" "r, Wpi, Wpu")]
+         UNSPEC_PLI))]
+  "TARGET_RVP && !TARGET_64BIT"
+  "@
+   padd.hs\t%0, x0, %1
+   pli.h\t%0, %1
+   plui.h\t%0, %1"
+  [(set_attr "type" "simd, simd, simd")])
+
+(define_expand "riscv_pmv_s_u8x8"
+  [(set (match_operand:V8QI 0 "register_operand")
+        (unspec:V8QI [(match_operand:QI 1 "nonmemory_operand")]
+         UNSPEC_PLI))]
+  "TARGET_RVP"
+{
+  if (TARGET_64BIT) {
+    emit_insn (gen_riscv_pmv_s_u8x8_rv64 (operands[0], operands[1]));
+  } else {
+    emit_insn (gen_riscv_pmv_s_u8x8_rv32 (operands[0], operands[1]));
+  }
+  DONE;
+})
+
+(define_insn "riscv_pmv_s_u8x8_rv32"
+  [(set (match_operand:V8QI 0 "register_operand" "=R, R")
+        (unspec:V8QI [(match_operand:QI 1 "nonmemory_operand" "r, Wpb")]
+         UNSPEC_PLI))]
+  "TARGET_RVP && !TARGET_64BIT"
+  "@
+   padd.dbs\t%0, x0, %1
+   pli.db\t%0, %1"
+  [(set_attr "type" "simd, simd")])
+
+(define_insn "riscv_pmv_s_u8x8_rv64"
+  [(set (match_operand:V8QI 0 "register_operand" "=r, r")
+        (unspec:V8QI [(match_operand:QI 1 "nonmemory_operand" "r, Wpb")]
+         UNSPEC_PLI))]
+  "TARGET_RVP && TARGET_64BIT"
+  "@
+   padd.bs\t%0, x0, %1
+   pli.b\t%0, %1"
+  [(set_attr "type" "simd, simd")])
+
+(define_expand "riscv_pmv_s_i8x8"
+  [(set (match_operand:V8QI 0 "register_operand")
+        (unspec:V8QI [(match_operand:QI 1 "nonmemory_operand")]
+         UNSPEC_PLI))]
+  "TARGET_RVP"
+{
+  if (TARGET_64BIT) {
+    emit_insn (gen_riscv_pmv_s_i8x8_rv64 (operands[0], operands[1]));
+  } else {
+    emit_insn (gen_riscv_pmv_s_i8x8_rv32 (operands[0], operands[1]));
+  }
+  DONE;
+})
+
+(define_insn "riscv_pmv_s_i8x8_rv32"
+  [(set (match_operand:V8QI 0 "register_operand" "=R, R")
+        (unspec:V8QI [(match_operand:QI 1 "nonmemory_operand" "r, Wpb")]
+         UNSPEC_PLI))]
+  "TARGET_RVP && !TARGET_64BIT"
+  "@
+   padd.dbs\t%0, x0, %1
+   pli.db\t%0, %1"
+  [(set_attr "type" "simd, simd")])
+
+(define_insn "riscv_pmv_s_i8x8_rv64"
+  [(set (match_operand:V8QI 0 "register_operand" "=r, r")
+        (unspec:V8QI [(match_operand:QI 1 "nonmemory_operand" "r, Wpb")]
+         UNSPEC_PLI))]
+  "TARGET_RVP && TARGET_64BIT"
+  "@
+   padd.bs\t%0, x0, %1
+   pli.b\t%0, %1"
+  [(set_attr "type" "simd, simd")])
+
+(define_expand "riscv_pmv_s_u16x4"
+  [(set (match_operand:V4HI 0 "register_operand")
+        (unspec:V4HI [(match_operand:HI 1 "nonmemory_operand")]
+         UNSPEC_PLI))]
+  "TARGET_RVP"
+{
+  if (TARGET_64BIT) {
+    emit_insn (gen_riscv_pmv_s_u16x4_rv64 (operands[0], operands[1]));
+  } else {
+    emit_insn (gen_riscv_pmv_s_u16x4_rv32 (operands[0], operands[1]));
+  }
+  DONE;
+})
+
+(define_insn "riscv_pmv_s_u16x4_rv32"
+  [(set (match_operand:V4HI 0 "register_operand" "=R, R, R")
+        (unspec:V4HI [(match_operand:HI 1 "nonmemory_operand" "r, Wpb, Wpu")]
+         UNSPEC_PLI))]
+  "TARGET_RVP && !TARGET_64BIT"
+  "@
+   padd.dhs\t%0, x0, %1
+   pli.dh\t%0, %1
+   plui.dh\t%0, %1"
+  [(set_attr "type" "simd, simd, simd")])
+
+(define_insn "riscv_pmv_s_u16x4_rv64"
+  [(set (match_operand:V4HI 0 "register_operand" "=R, R, R")
+        (unspec:V4HI [(match_operand:HI 1 "nonmemory_operand" "r, Wpb, Wpu")]
+         UNSPEC_PLI))]
+  "TARGET_RVP && TARGET_64BIT"
+  "@
+   padd.hs\t%0, x0, %1
+   pli.h\t%0, %1
+   plui.h\t%0, %1"
+  [(set_attr "type" "simd, simd, simd")])
+
+(define_expand "riscv_pmv_s_i16x4"
+  [(set (match_operand:V4HI 0 "register_operand")
+        (unspec:V4HI [(match_operand:HI 1 "nonmemory_operand")]
+         UNSPEC_PLI))]
+  "TARGET_RVP"
+{
+  if (TARGET_64BIT) {
+    emit_insn (gen_riscv_pmv_s_i16x4_rv64 (operands[0], operands[1]));
+  } else {
+    emit_insn (gen_riscv_pmv_s_i16x4_rv32 (operands[0], operands[1]));
+  }
+  DONE;
+})
+
+(define_insn "riscv_pmv_s_i16x4_rv32"
+  [(set (match_operand:V4HI 0 "register_operand" "=R, R, R")
+        (unspec:V4HI [(match_operand:HI 1 "nonmemory_operand" "r, Wpb, Wpu")]
+         UNSPEC_PLI))]
+  "TARGET_RVP && !TARGET_64BIT"
+  "@
+   padd.dhs\t%0, x0, %1
+   pli.dh\t%0, %1
+   plui.dh\t%0, %1"
+  [(set_attr "type" "simd, simd, simd")])
+
+(define_insn "riscv_pmv_s_i16x4_rv64"
+  [(set (match_operand:V4HI 0 "register_operand" "=R, R, R")
+        (unspec:V4HI [(match_operand:HI 1 "nonmemory_operand" "r, Wpb, Wpu")]
+         UNSPEC_PLI))]
+  "TARGET_RVP && TARGET_64BIT"
+  "@
+   padd.hs\t%0, x0, %1
+   pli.h\t%0, %1
+   plui.h\t%0, %1"
+  [(set_attr "type" "simd, simd, simd")])
+
+(define_expand "riscv_pmv_s_u32x2"
+  [(set (match_operand:V2SI 0 "register_operand")
+        (unspec:V2SI [(match_operand:SI 1 "nonmemory_operand")]
+         UNSPEC_PLI))]
+  "TARGET_RVP"
+{
+  if (TARGET_64BIT) {
+    emit_insn (gen_riscv_pmv_s_u32x2_rv64 (operands[0], operands[1]));
+  } else {
+    emit_insn (gen_riscv_pmv_s_u32x2_rv32 (operands[0], operands[1]));
+  }
+  DONE;
+})
+
+;TODO lui+addi+mv
+(define_insn "riscv_pmv_s_u32x2_rv32"
+  [(set (match_operand:V2SI 0 "register_operand" "=R, R, R")
+        (unspec:V2SI [(match_operand:SI 1 "nonmemory_operand" "r, Wpb, Wpu")]
+         UNSPEC_PLI))]
+  "TARGET_RVP && !TARGET_64BIT"
+  "padd.dws\t%0, x0, %1"
+  [(set_attr "type" "simd, simd, simd")])
+
+(define_insn "riscv_pmv_s_u32x2_rv64"
+  [(set (match_operand:V2SI 0 "register_operand" "=R, R, R")
+        (unspec:V2SI [(match_operand:SI 1 "nonmemory_operand" "r, Wpb, Wpu")]
+         UNSPEC_PLI))]
+  "TARGET_RVP && TARGET_64BIT"
+  "@
+   padd.ws\t%0, x0, %1
+   pli.w\t%0, %1
+   plui.w\t%0, %1"
+  [(set_attr "type" "simd, simd, simd")])
+
+(define_expand "riscv_pmv_s_i32x2"
+  [(set (match_operand:V2SI 0 "register_operand")
+        (unspec:V2SI [(match_operand:SI 1 "nonmemory_operand")]
+         UNSPEC_PLI))]
+  "TARGET_RVP"
+{
+  if (TARGET_64BIT) {
+    emit_insn (gen_riscv_pmv_s_i32x2_rv64 (operands[0], operands[1]));
+  } else {
+    emit_insn (gen_riscv_pmv_s_i32x2_rv32 (operands[0], operands[1]));
+  }
+  DONE;
+})
+
+;TODO lui+addi+mv
+(define_insn "riscv_pmv_s_i32x2_rv32"
+  [(set (match_operand:V2SI 0 "register_operand" "=R, R, R")
+        (unspec:V2SI [(match_operand:SI 1 "nonmemory_operand" "r, Wpb, Wpu")]
+         UNSPEC_PLI))]
+  "TARGET_RVP && !TARGET_64BIT"
+  "padd.dws\t%0, x0, %1"
+  [(set_attr "type" "simd, simd, simd")])
+
+(define_insn "riscv_pmv_s_i32x2_rv64"
+  [(set (match_operand:V2SI 0 "register_operand" "=R, R, R")
+        (unspec:V2SI [(match_operand:SI 1 "nonmemory_operand" "r, Wpb, Wpu")]
+         UNSPEC_PLI))]
+  "TARGET_RVP && TARGET_64BIT"
+  "@
+   padd.ws\t%0, x0, %1
+   pli.w\t%0, %1
+   plui.w\t%0, %1"
+  [(set_attr "type" "simd, simd, simd")])
+
 ;Packed Shift Left Immediate intrinsics
 (define_insn "riscv_pslli_<SUFFIX>_<VQIHISI:mode><X:mode>_p"
   [(set (match_operand:VQIHISI 0 "register_operand" "=r")
