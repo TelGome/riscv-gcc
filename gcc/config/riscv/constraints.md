@@ -351,3 +351,19 @@
   "A 10-bit unsigned immediate shifted left by 6 for plui.h."
   (and (match_code "const_int")
        (match_test "(ival & 0x3F) == 0 && IN_RANGE (ival, 0, 65472)")))
+
+(define_constraint "u3"
+  "A 3-bit unsigned immediate for P-extension instructions (0-7)."
+  (and (match_code "const_int")
+       (match_test "IN_RANGE (ival, 0, 7)")))
+
+(define_constraint "u4"
+  "A 4-bit unsigned immediate for P-extension instructions (0-15)."
+  (and (match_code "const_int")
+       (match_test "IN_RANGE (ival, 0, 15)")))
+
+(define_constraint "w4"
+  "A 4-bit unsigned immediate for P-extension instructions (-15 to -1)."
+  (and (match_code "const_int")
+       (match_test "IN_RANGE (ival, -15, -1)")))
+
