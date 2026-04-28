@@ -154,6 +154,13 @@ CREATE_RVP_INTRINSIC(uintXLEN_t, cls, intXLEN_t)
 CREATE_RVP_INTRINSIC(uintXLEN_t, rev, uintXLEN_t)
 
 CREATE_RVP_INTRINSIC(uint8x8_t, psll_s_u8x8, uint8x8_t, uint32_t)
+CREATE_RVP_INTRINSIC(int8x8_t, psll_s_i8x8, int8x8_t, uint32_t)
+CREATE_RVP_INTRINSIC(uint16x4_t, psll_s_u16x4, uint16x4_t, uint32_t)
+CREATE_RVP_INTRINSIC(int16x4_t, psll_s_i16x4, int16x4_t, uint32_t)
+CREATE_RVP_INTRINSIC(uint32x2_t, psll_s_u32x2, uint32x2_t, uint32_t)
+CREATE_RVP_INTRINSIC(int32x2_t, psll_s_i32x2, int32x2_t, uint32_t)
+CREATE_RVP_INTRINSIC(int16x4_t, pssha_s_i16x4, int16x4_t, int32_t)
+CREATE_RVP_INTRINSIC(int32x2_t, pssha_s_i32x2, int32x2_t, int32_t)
 
 #if __riscv_xlen == 32
 

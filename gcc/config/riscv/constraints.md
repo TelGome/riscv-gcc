@@ -367,3 +367,13 @@
   (and (match_code "const_int")
        (match_test "IN_RANGE (ival, -15, -1)")))
 
+(define_constraint "u5"
+  "A 5-bit unsigned immediate (0-31)."
+  (and (match_code "const_int")
+       (match_test "IN_RANGE (ival, 0, 31)")))
+
+(define_constraint "w5"
+  "A 5-bit negative immediate (-31 to -1)."
+  (and (match_code "const_int")
+       (match_test "IN_RANGE (ival, -31, -1)")))
+

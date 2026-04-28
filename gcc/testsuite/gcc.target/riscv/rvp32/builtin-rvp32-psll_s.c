@@ -237,3 +237,94 @@ uint8x8_t f24 (uint8x8_t x0, uint32_t x1){
 uint8x8_t f25 (uint8x8_t x0, uint32_t x1){
     return __riscv_psll_s_u8x8(x0, x1);
 }
+
+/*
+**f26:
+** pslli.db\ta[0-9],a[0-9],1
+** ...
+*/
+int8x8_t f26 (int8x8_t x0, uint32_t x1){
+    return __riscv_psll_s_i8x8(x0, 1);
+}
+
+/*
+**f27:
+** psll.dbs\ta[0-9],a[0-9],a[0-9]
+** ...
+*/
+int8x8_t f27 (int8x8_t x0, uint32_t x1){
+    return __riscv_psll_s_i8x8(x0, x1);
+}
+
+/*
+**f28:
+** pslli.dh\ta[0-9],a[0-9],1
+** ...
+*/
+uint16x4_t f28 (uint16x4_t x0, uint32_t x1){
+    return __riscv_psll_s_u16x4(x0, 1);
+}
+
+/*
+**f29:
+** psll.dhs\ta[0-9],a[0-9],a[0-9]
+** ...
+*/
+uint16x4_t f29 (uint16x4_t x0, uint32_t x1){
+    return __riscv_psll_s_u16x4(x0, x1);
+}
+
+/*
+**f30:
+** pslli.dh\ta[0-9],a[0-9],1
+** ...
+*/
+int16x4_t f30 (int16x4_t x0, uint32_t x1){
+    return __riscv_psll_s_i16x4(x0, 1);
+}
+
+/*
+**f31:
+** psll.dhs\ta[0-9],a[0-9],a[0-9]
+** ...
+*/
+int16x4_t f31 (int16x4_t x0, uint32_t x1){
+    return __riscv_psll_s_i16x4(x0, x1);
+}
+
+/*
+**f32:
+** pslli.dw\ta[0-9],a[0-9],1
+** ...
+*/
+uint32x2_t f32 (uint32x2_t x0, uint32_t x1){
+    return __riscv_psll_s_u32x2(x0, 1);
+}
+
+/*
+**f33:
+** psll.dws\ta[0-9],a[0-9],1
+** ...
+*/
+uint32x2_t f33 (uint32x2_t x0, uint32_t x1){
+    return __riscv_psll_s_u32x2(x0, x1);
+}
+
+/*
+**f34:
+** pslli.dw\ta[0-9],a[0-9],1
+** ...
+*/
+int32x2_t f34 (int32x2_t x0, uint32_t x1){
+    return __riscv_psll_s_i32x2(x0, 1);
+}
+
+/*
+**f35:
+** psll.dws\ta[0-9],a[0-9],1
+** ...
+*/
+int32x2_t f35 (int32x2_t x0, uint32_t x1){
+    return __riscv_psll_s_i32x2(x0, x1);
+}
+

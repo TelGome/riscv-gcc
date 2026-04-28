@@ -475,7 +475,7 @@
   "TARGET_RVP && !TARGET_64BIT"
   "@
    psslai.h\t%0,%1,%2
-   psrai.h\t%0,%1,%n2
+   psrai.h\t%0,%1,%2
    pssha.hs\t%0,%1,%2"
   [(set_attr "type" "simd, simd, simd")])
 
@@ -591,10 +591,267 @@
    psll.bs\t%0,%1,%2"
   [(set_attr "type" "simd, simd")])
 
+(define_expand "riscv_psll_s_i8x8"
+  [(set (match_operand:V8QI 0 "register_operand")
+        (unspec:V8QI [(match_operand:V8QI 1 "register_operand")
+                    (match_operand:SI 2 "nonmemory_operand")]
+         UNSPEC_PSLL))]
+  "TARGET_RVP"
+{
+  if (TARGET_64BIT) {
+    emit_insn (gen_riscv_psll_s_i8x8_rv64 (operands[0], operands[1], operands[2]));
+  } else {
+    emit_insn (gen_riscv_psll_s_i8x8_rv32 (operands[0], operands[1], operands[2]));
+  }
+  DONE;
+})
 
+(define_insn "riscv_psll_s_i8x8_rv64"
+  [(set (match_operand:V8QI 0 "register_operand" "=r, r")
+        (unspec:V8QI [(match_operand:V8QI 1 "register_operand" "r, r")
+                    (match_operand:SI 2 "arith_operand" "u3, r")]
+         UNSPEC_PSLL))]
+  "TARGET_RVP && TARGET_64BIT"
+  "@
+   pslli.b\t%0,%1,%2
+   psll.bs\t%0,%1,%2"
+  [(set_attr "type" "simd, simd")])
 
+(define_insn "riscv_psll_s_i8x8_rv32"
+  [(set (match_operand:V8QI 0 "register_operand" "=R, R")
+        (unspec:V8QI [(match_operand:V8QI 1 "register_operand" "r, r")
+                    (match_operand:SI 2 "arith_operand" "u3, r")]
+         UNSPEC_PSLL))]
+  "TARGET_RVP && !TARGET_64BIT"
+  "@
+   pslli.db\t%0,%1,%2
+   psll.dbs\t%0,%1,%2"
+  [(set_attr "type" "simd, simd")])
 
+(define_expand "riscv_psll_s_u16x4"
+  [(set (match_operand:V4HI 0 "register_operand")
+        (unspec:V4HI [(match_operand:V4HI 1 "register_operand")
+                    (match_operand:SI 2 "nonmemory_operand")]
+         UNSPEC_PSLL))]
+  "TARGET_RVP"
+{
+  if (TARGET_64BIT) {
+    emit_insn (gen_riscv_psll_s_u16x4_rv64 (operands[0], operands[1], operands[2]));
+  } else {
+    emit_insn (gen_riscv_psll_s_u16x4_rv32 (operands[0], operands[1], operands[2]));
+  }
+  DONE;
+})
 
+(define_insn "riscv_psll_s_u16x4_rv32"
+  [(set (match_operand:V4HI 0 "register_operand" "=R, R")
+        (unspec:V4HI [(match_operand:V4HI 1 "register_operand" "r, r")
+                    (match_operand:SI 2 "arith_operand" "u4, r")]
+          UNSPEC_PSLL))]
+  "TARGET_RVP && !TARGET_64BIT"
+  "@
+   pslli.dh\t%0,%1,%2
+   psll.dhs\t%0,%1,%2"
+  [(set_attr "type" "simd, simd")])
 
+(define_insn "riscv_psll_s_u16x4_rv64"
+  [(set (match_operand:V4HI 0 "register_operand" "=r, r")
+        (unspec:V4HI [(match_operand:V4HI 1 "register_operand" "r, r")
+                    (match_operand:SI 2 "arith_operand" "u4, r")]
+          UNSPEC_PSLL))]
+  "TARGET_RVP && TARGET_64BIT"
+  "@
+   pslli.h\t%0,%1,%2
+   psll.hs\t%0,%1,%2"
+  [(set_attr "type" "simd, simd")])
+
+(define_expand "riscv_psll_s_i16x4"
+  [(set (match_operand:V4HI 0 "register_operand")
+        (unspec:V4HI [(match_operand:V4HI 1 "register_operand")
+                    (match_operand:SI 2 "nonmemory_operand")]
+         UNSPEC_PSLL))]
+  "TARGET_RVP"
+{
+  if (TARGET_64BIT) {
+    emit_insn (gen_riscv_psll_s_i16x4_rv64 (operands[0], operands[1], operands[2]));
+  } else {
+    emit_insn (gen_riscv_psll_s_i16x4_rv32 (operands[0], operands[1], operands[2]));
+  }
+  DONE;
+})
+
+(define_insn "riscv_psll_s_i16x4_rv32"
+  [(set (match_operand:V4HI 0 "register_operand" "=R, R")
+        (unspec:V4HI [(match_operand:V4HI 1 "register_operand" "r, r")
+                    (match_operand:SI 2 "arith_operand" "u4, r")]
+          UNSPEC_PSLL))]
+  "TARGET_RVP && !TARGET_64BIT"
+  "@
+   pslli.dh\t%0,%1,%2
+   psll.dhs\t%0,%1,%2"
+  [(set_attr "type" "simd, simd")])
+
+(define_insn "riscv_psll_s_i16x4_rv64"
+  [(set (match_operand:V4HI 0 "register_operand" "=r, r")
+        (unspec:V4HI [(match_operand:V4HI 1 "register_operand" "r, r")
+                    (match_operand:SI 2 "arith_operand" "u4, r")]
+          UNSPEC_PSLL))]
+  "TARGET_RVP && TARGET_64BIT"
+  "@
+   pslli.h\t%0,%1,%2
+   psll.hs\t%0,%1,%2"
+  [(set_attr "type" "simd, simd")])
+
+(define_expand "riscv_psll_s_u32x2"
+  [(set (match_operand:V2SI 0 "register_operand")
+        (unspec:V2SI [(match_operand:V2SI 1 "register_operand")
+                    (match_operand:SI 2 "nonmemory_operand")]
+         UNSPEC_PSLL))]
+  "TARGET_RVP"
+{
+  if (TARGET_64BIT) {
+    emit_insn (gen_riscv_psll_s_u32x2_rv64 (operands[0], operands[1], operands[2]));
+  } else {
+    emit_insn (gen_riscv_psll_s_u32x2_rv32 (operands[0], operands[1], operands[2]));
+  }
+  DONE;
+})
+
+(define_insn "riscv_psll_s_u32x2_rv32"
+  [(set (match_operand:V2SI 0 "register_operand" "=R, R")
+        (unspec:V2SI [(match_operand:V2SI 1 "register_operand" "r, r")
+                    (match_operand:SI 2 "arith_operand" "u5, r")]
+          UNSPEC_PSLL))]
+  "TARGET_RVP && !TARGET_64BIT"
+  "@
+   pslli.dw\t%0,%1,%2
+   psll.dws\t%0,%1,%2"
+  [(set_attr "type" "simd, simd")])
+
+(define_insn "riscv_psll_s_u32x2_rv64"
+  [(set (match_operand:V2SI 0 "register_operand" "=r, r")
+        (unspec:V2SI [(match_operand:V2SI 1 "register_operand" "r, r")
+                    (match_operand:SI 2 "arith_operand" "u5, r")]
+          UNSPEC_PSLL))]
+  "TARGET_RVP && TARGET_64BIT"
+  "@
+   pslli.w\t%0,%1,%2
+   psll.ws\t%0,%1,%2"
+  [(set_attr "type" "simd, simd")])
+
+(define_expand "riscv_psll_s_i32x2"
+  [(set (match_operand:V2SI 0 "register_operand")
+        (unspec:V2SI [(match_operand:V2SI 1 "register_operand")
+                    (match_operand:SI 2 "nonmemory_operand")]
+         UNSPEC_PSLL))]
+  "TARGET_RVP"
+{
+  if (TARGET_64BIT) {
+    emit_insn (gen_riscv_psll_s_i32x2_rv64 (operands[0], operands[1], operands[2]));
+  } else {
+    emit_insn (gen_riscv_psll_s_i32x2_rv32 (operands[0], operands[1], operands[2]));
+  }
+  DONE;
+})
+
+(define_insn "riscv_psll_s_i32x2_rv32"
+  [(set (match_operand:V2SI 0 "register_operand" "=R, R")
+        (unspec:V2SI [(match_operand:V2SI 1 "register_operand" "r, r")
+                    (match_operand:SI 2 "arith_operand" "u5, r")]
+          UNSPEC_PSLL))]
+  "TARGET_RVP && !TARGET_64BIT"
+  "@
+   pslli.dw\t%0,%1,%2
+   psll.dws\t%0,%1,%2"
+  [(set_attr "type" "simd, simd")])
+
+(define_insn "riscv_psll_s_i32x2_rv64"
+  [(set (match_operand:V2SI 0 "register_operand" "=r, r")
+        (unspec:V2SI [(match_operand:V2SI 1 "register_operand" "r, r")
+                    (match_operand:SI 2 "arith_operand" "u5, r")]
+          UNSPEC_PSLL))]
+  "TARGET_RVP && TARGET_64BIT"
+  "@
+   pslli.w\t%0,%1,%2
+   psll.ws\t%0,%1,%2"
+  [(set_attr "type" "simd, simd")])
+
+(define_expand "riscv_pssha_s_i16x4"
+  [(set (match_operand:V4HI 0 "register_operand")
+        (unspec:V4HI [(match_operand:V4HI 1 "register_operand")
+                    (match_operand:SI 2 "nonmemory_operand")]
+         UNSPEC_PSSHA))]
+  "TARGET_RVP"
+{
+  if (TARGET_64BIT) {
+    emit_insn (gen_riscv_pssha_s_i16x4_rv64 (operands[0], operands[1], operands[2]));
+  } else {
+    emit_insn (gen_riscv_pssha_s_i16x4_rv32 (operands[0], operands[1], operands[2]));
+  }
+  DONE;
+})
+
+(define_insn "riscv_pssha_s_i16x4_rv32"
+  [(set (match_operand:V4HI 0 "register_operand" "=R, R, R")
+        (unspec:V4HI [(match_operand:V4HI 1 "register_operand" "r, r, r")
+                    (match_operand:SI 2 "arith_operand" "u4, w4, r")]
+          UNSPEC_PSSHA))]
+  "TARGET_RVP && !TARGET_64BIT"
+  "@
+   psslai.dh\t%0,%1,%2
+   psrai.dh\t%0,%1,%2
+   pssha.dhs\t%0,%1,%2"
+  [(set_attr "type" "simd, simd, simd")])
+
+(define_insn "riscv_pssha_s_i16x4_rv64"
+  [(set (match_operand:V4HI 0 "register_operand" "=r, r, r")
+        (unspec:V4HI [(match_operand:V4HI 1 "register_operand" "r, r, r")
+                    (match_operand:SI 2 "arith_operand" "u4, w4, r")]
+          UNSPEC_PSSHA))]
+  "TARGET_RVP && TARGET_64BIT"
+  "@
+   psslai.h\t%0,%1,%2
+   psrai.h\t%0,%1,%2
+   pssha.hs\t%0,%1,%2"
+  [(set_attr "type" "simd, simd, simd")])
+
+(define_expand "riscv_pssha_s_i32x2"
+  [(set (match_operand:V2SI 0 "register_operand" "=R, R, R")
+        (unspec:V2SI [(match_operand:V2SI 1 "register_operand" "r, r, r")
+                    (match_operand:SI 2 "arith_operand" "u5, w5, r")]
+          UNSPEC_PSSHA))]
+  "TARGET_RVP"
+{
+  if (TARGET_64BIT) {
+    emit_insn (gen_riscv_pssha_s_i32x2_rv64 (operands[0], operands[1], operands[2]));
+  } else {
+    emit_insn (gen_riscv_pssha_s_i32x2_rv32 (operands[0], operands[1], operands[2]));
+  }
+  DONE;
+})
+
+(define_insn "riscv_pssha_s_i32x2_rv32"
+  [(set (match_operand:V2SI 0 "register_operand" "=R, R, R")
+        (unspec:V2SI [(match_operand:V2SI 1 "register_operand" "r, r, r")
+                    (match_operand:SI 2 "arith_operand" "u5, w5, r")]
+          UNSPEC_PSSHA))]
+  "TARGET_RVP && !TARGET_64BIT"
+  "@
+   psslai.dw\t%0,%1,%2
+   psrai.dw\t%0,%1,%2
+   pssha.dws\t%0,%1,%2"
+  [(set_attr "type" "simd, simd, simd")])
+
+(define_insn "riscv_pssha_s_i32x2_rv64"
+  [(set (match_operand:V2SI 0 "register_operand" "=r, r, r")
+        (unspec:V2SI [(match_operand:V2SI 1 "register_operand" "r, r, r")
+                    (match_operand:SI 2 "arith_operand" "u5, w5, r")]
+          UNSPEC_PSSHA))]
+  "TARGET_RVP && TARGET_64BIT"
+  "@
+   psslai.w\t%0,%1,%2
+   psrai.w\t%0,%1,%2
+   pssha.ws\t%0,%1,%2"
+  [(set_attr "type" "simd, simd, simd")])
 
 
